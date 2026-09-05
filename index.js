@@ -1,9 +1,8 @@
 const express = require('express');
-const app = express();
-const { MongoClient, ObjectId } = require('mongodb');
+const app = express()
+const  { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config()
-const port = 3000;
-
+const port = 3000
 
 
 
@@ -12,22 +11,22 @@ const client = new MongoClient(process.env.DB_URI);
  async function connectToMongoDB() {
   try {
     await client.connect();
-
-    
+     
     const db = client.db("e-commerce");
     const productsCollection = db.collection("products")
 
+    // all products................................
     app.get('/products', async(req, res)=>{
       const result =await productsCollection.find().toArray();
       res.send(result)
-
     })
 
+    //single product....................................
     app.get('/products/:productId', async(req, res)=>{
       const productId = req.params.productId;
-      const query = {_id:new ObjectId(productId)}
-       const result =await productsCollection.findOne(query)
-       res.send(result)
+      const query ={_id:new ObjectId(productId)}
+      const result = await productsCollection.findOne(query)
+      res.send(result)
     })
 
 
@@ -38,19 +37,15 @@ const client = new MongoClient(process.env.DB_URI);
     console.dir(err);
   }
 }
-connectToMongoDB();
-
-
-
-
+connectToMongoDB()
 
 
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!. I am practicing CRUD');
-});
+  res.send('Hello World!')
+})
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  console.log(`Example app listening on port ${port}`)
+})
