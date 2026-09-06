@@ -3,8 +3,9 @@ const app = express()
 const  { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config()
 const cors = require('cors')
-app.use(cors());
 const port = process.env.PORT;
+app.use(cors());
+app.use(express.json())
 
 
 
@@ -23,12 +24,21 @@ const client = new MongoClient(process.env.DB_URI);
       res.send(result)
     })
 
-    //single product....................................
+    //get single product....................................
     app.get('/products/:productId', async(req, res)=>{
       const productId = req.params.productId;
       const query ={_id:new ObjectId(productId)}
       const result = await productsCollection.findOne(query)
       res.send(result)
+    })
+
+
+    // post single product....................................
+    app.post('/products', async(req, res)=>{
+       const newProduct = req.body;
+       const result = await productsCollection.insertOne(newProduct);
+      //  console.log(result)
+       res.send(result)
     })
 
 
