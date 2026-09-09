@@ -24,6 +24,10 @@ const client = new MongoClient(process.env.DB_URI);
       res.send(result)
     })
 
+
+
+    
+
     //get single product....................................
     app.get('/products/:productId', async(req, res)=>{
       const productId = req.params.productId;
@@ -33,6 +37,9 @@ const client = new MongoClient(process.env.DB_URI);
     })
 
 
+
+
+
     // post single product....................................
     app.post('/products', async(req, res)=>{
        const newProduct = req.body;
@@ -40,13 +47,21 @@ const client = new MongoClient(process.env.DB_URI);
       //  console.log(result) 
        res.send(result)
     })
-   
+  
+
+
+
+
+
+    // delete route --------------------------------------------------------------
     app.delete('/products/:productId', async(req, res)=>{
       const productId = req.params.productId;
       const query ={_id:new ObjectId(productId)}
       const result = await productsCollection.deleteOne(query)
       res.send(result)
     })
+
+
 
 
 
