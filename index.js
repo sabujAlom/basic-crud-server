@@ -37,8 +37,15 @@ const client = new MongoClient(process.env.DB_URI);
     app.post('/products', async(req, res)=>{
        const newProduct = req.body;
        const result = await productsCollection.insertOne(newProduct);
-      //  console.log(result)
+      //  console.log(result) 
        res.send(result)
+    })
+   
+    app.delete('/products/:productId', async(req, res)=>{
+      const productId = req.params.productId;
+      const query ={_id:new ObjectId(productId)}
+      const result = await productsCollection.deleteOne(query)
+      res.send(result)
     })
 
 
