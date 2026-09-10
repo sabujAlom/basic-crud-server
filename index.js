@@ -61,10 +61,7 @@ const client = new MongoClient(process.env.DB_URI);
       res.send(result)
     })
 
-
-
-
-
+    
     console.log("You successfully connected to MongoDB!");
     return client;
   } catch (err) {
