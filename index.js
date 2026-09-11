@@ -61,6 +61,25 @@ const client = new MongoClient(process.env.DB_URI);
       res.send(result)
     })
 
+
+    
+   
+    //Update route ...................................................................
+    app.patch("/products/:productId", async(req, res)=>{
+      const {productId}=req.params;
+      const updatedData = req.body;
+      const filter ={_id: new ObjectId(productId)};
+      const updatedDoc = {
+        $set: {
+          ...updatedData,
+        },
+      };
+      const result = await productsCollection.updateOne(filter, updatedDoc)
+    })
+
+
+
+
     
     console.log("You successfully connected to MongoDB!");
     return client;
