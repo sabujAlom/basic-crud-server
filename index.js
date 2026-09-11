@@ -62,7 +62,7 @@ const client = new MongoClient(process.env.DB_URI);
     })
 
 
-    
+
    
     //Update route ...................................................................
     app.patch("/products/:productId", async(req, res)=>{
@@ -74,7 +74,8 @@ const client = new MongoClient(process.env.DB_URI);
           ...updatedData,
         },
       };
-      const result = await productsCollection.updateOne(filter, updatedDoc)
+      const result = await productsCollection.updateOne(filter, updatedDoc);
+      res.send(result)
     })
 
 
